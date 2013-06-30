@@ -1,0 +1,4 @@
+*.pyc
+trello
+*.xml
+PyRSS2Gen.py
