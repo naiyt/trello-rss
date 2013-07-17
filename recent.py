@@ -15,9 +15,10 @@ TODO:
 
 """
 
+import json
+import config
 from trello import TrelloClient
 from datetime import datetime
-import json
 
 
 class InvalidItem(Exception):
@@ -40,15 +41,21 @@ class Recent:
 
     """
 
-    def __init__(self, api_key, token):
+    def __init__(self, api_key, token=None, board_id=None, public_board=False):
         self.api_key = api_key
         self.token = token
+        if self.token is None:
+            self.public_only = True
+        else:
+            self.public_only = False
         self.trell = TrelloClient(self.api_key, self.token)
         self.boards = None # Lazy, so doesn't fetch until we ask for them
+        self.board_id = board_id
+        self.public_board = public_board
 
         # A list of items currently supported. The user should pass in one of the keys below,
         # and we use the values when passing it to the Trello API.
-        self.items = {'cards': 'createCard', 'boards': 'createBoard', 'lists': 'createList', 'comments': 'commentCard'}
+        self.items = config.all_item_types
 
 
     def create_date(self, date):
@@ -57,6 +64,8 @@ class Recent:
     def get_activity(self, filter, boards):
         """Given a filter, returns those actions for boards from the Trello API"""
         actions = []
+        if type(boards) is not list:
+            boards = [boards]
         for board in boards:
             # TODO: Let the user specify if they want closed boards too
             if board.closed is False:
@@ -74,8 +83,10 @@ class Recent:
         a token).
 
         """
+        if self.board_id and self.public_board:
+            self.boards = self.trell.get_board(self.board_id)
 
-        if self.boards is None:
+        elif self.boards is None:
             self.boards = self.trell.list_boards()
         return self.boards
 
