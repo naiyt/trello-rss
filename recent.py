@@ -67,7 +67,6 @@ class Recent:
         if type(boards) is not list:
             boards = [boards]
         for board in boards:
-            # TODO: Let the user specify if they want closed boards too
             if board.closed is False:
                 board.fetch_actions(filter)
                 if len(board.actions) > 0:
@@ -90,7 +89,7 @@ class Recent:
             self.boards = self.trell.list_boards()
         return self.boards
 
-    def fetch_item(self, item_name):
+    def fetch_items(self, item_names):
         """
         Fetch the recent activity for item_name - current possible options:
         
@@ -103,10 +102,11 @@ class Recent:
         returning it?
 
         """
-        
-        if item_name not in self.items:
-            raise InvalidItem("%s is not a supported item." % item_name)
-
-        for item in self.items:
-            if item_name == item:
-                return self.get_activity(self.items[item], self.get_boards())
+        for item in item_names:
+            if item not in self.items:
+                raise InvalidItem("%s is not a supported item." % item)
+        items = []
+        for item in item_names:
+            items.append(self.items[item])
+        items = ','.join(items)
+        return self.get_activity(items, self.get_boards())

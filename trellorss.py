@@ -76,7 +76,7 @@ class RSSObj:
 	def create_rss(self):
 		"""
 		Sorts the list according to date, then creates the actual
-		RSS object that can be  used to output your feed. If you don't
+		RSS object that can be	used to output your feed. If you don't
 		specify num, it returns all news items.
 	
 		"""
@@ -104,13 +104,15 @@ class TrelloRSS:
 		self.description = description
 		self.channel_obj = Channel(self.channel_title,self.rss_channel_link,self.description)
 
-	def get_all(self,num=15):
-		"""Returns an RSS object with all info for all boards associated with their token"""
+	def get_all(self,num=15,items=None):
+		"""Returns an RSS object with specified info for all boards associated with their token"""
 		if self.public_only:
 			print "Notice: This TrelloRSS object can only view public boards. Pass in a token to read private ones."
 			return None
 		else:
-			self._get_items(num,self.all_items.keys())            
+			if items is None:
+				items = self.all_items.keys()
+			self._get_items(num,items)			  
 			return self.rss
 
 	def get_only(self,items,num=15):
@@ -131,8 +133,8 @@ class TrelloRSS:
 		Creates a Recent object, and gets a list of new cards, boards, lists
 		and comments. Creates the RSS Item objects with each, then creates the
 		full RSS object and outputs it to outfile.
-   	
-   	
+	
+	
 		TODO:
 		-Add support for getting information on all other types of Trello actions.
 		(Need to update the Recent module for that to.) Could get a bit messy,
@@ -151,14 +153,14 @@ class TrelloRSS:
 
 		# Retrieves ALL updates for the items listed above
 		# Could possibly be more restrictive, for performance
-		all_items = [my_updates.fetch_item(item) for item in items]
-	
+		all_items = my_updates.fetch_items(items)
+		#all_items = [my_updates.fetch_item(item) for item in items]
+
 		item_objs = []
 		for item in all_items:
 			for entity in item:
-				for sub in entity:
-					curr_item = self._create_item(sub,item,my_updates)
-					item_objs.append(curr_item)
+				curr_item = self._create_item(entity,item,my_updates)
+				item_objs.append(curr_item)
 		rss = RSSObj(self.channel_obj, item_objs, num).rss
 		self.rss = rss
 
