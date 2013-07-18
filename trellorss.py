@@ -112,7 +112,7 @@ class TrelloRSS:
 		else:
 			if items is None:
 				items = self.all_items.keys()
-			self._get_items(num,items)			  
+			self._get_items(num,items,all_private=True)			  
 			return self.rss
 
 	def get_only(self,items,num=15):
@@ -128,7 +128,7 @@ class TrelloRSS:
 			items = self.all_items
 		self._get_items(num,items,board_id,public_board)
 
-	def _get_items(self,num,items=None,board_id=None,public_board=False):
+	def _get_items(self,num,items=None,board_id=None,public_board=False,all_private=False):
 		"""
 		Creates a Recent object, and gets a list of new cards, boards, lists
 		and comments. Creates the RSS Item objects with each, then creates the
@@ -147,7 +147,7 @@ class TrelloRSS:
 			items = self.all_items
 		
 		if self.token and public_board is False:
-			my_updates = Recent(self.key,self.token)
+			my_updates = Recent(self.key,self.token,all_private=all_private)
 		else:
 			my_updates = Recent(self.key,board_id=board_id,public_board=public_board)
 
@@ -159,8 +159,14 @@ class TrelloRSS:
 		item_objs = []
 		for item in all_items:
 			for entity in item:
-				curr_item = self._create_item(entity,item,my_updates)
-				item_objs.append(curr_item)
+				if 'memberCreator' not in entity:
+					entity = entity['actions']
+					for sub in entity:					
+						curr_item = self._create_item(sub,item,my_updates)
+						item_objs.append(curr_item)
+				else:
+					curr_item = self._create_item(entity,item,my_updates)
+					item_objs.append(curr_item)
 		rss = RSSObj(self.channel_obj, item_objs, num).rss
 		self.rss = rss
 
