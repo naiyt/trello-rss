@@ -6,7 +6,7 @@ I decided to throw together some quick Python over the weekend to create an RSS 
 
 ## Dependencies
 
-- Uses [sarumont's py-trello] (https://github.com/sarumont/py-trello/) API wrapper. 
+- Uses [sarumont's py-trello] (https://github.com/sarumont/py-trello/) API wrapper. I've made a few changes that haven't been pulled yet, so [use my fork of it for now] (https://github.com/naiyt/trello-rss).
 - [PyRSS2Gen] (https://pypi.python.org/pypi/PyRSS2Gen) is used to create the actual RSS object.
 - Python 2.x. No Python 3 support right now.
 - A [Trello API Key] (https://trello.com/1/appKey/generate) and [authentication token] (https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user). A token is not necessary if you are viewing public boards.
