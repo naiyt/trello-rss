@@ -70,8 +70,8 @@ This should be obvious, but figured I should at least mention it. If you've got 
 
 ## TODO
 
-- Add tests
 - Support for all other [possible actions] (https://trello.com/docs/api/board/index.html#get-1-boards-board-id)
-- Clean up the code.
+- Clean up the code a bit.
+- More effecient way of retrieving all actions on all of a user's boards?
 
 If you want to help out, I think the best help right now would be with supporting further actions, and allowing the user to specify which boards to follow. If that interests you, jump on in and then send off a pull request.
