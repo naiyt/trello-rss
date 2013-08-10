@@ -98,6 +98,8 @@ class Recent:
 		boards
 		lists
 		comments
+        createChecklist
+        updateCheck
 
 		TODO: Maybe store the item as a class attribute instead of just
 		returning it?

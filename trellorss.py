@@ -19,8 +19,6 @@ A Trello API Key and token for the boards to view:
 https://trello.com/1/appKey/generate
 https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user
 
-Put the key and token in config.py
-
 """
 
 import datetime
@@ -192,7 +190,10 @@ class TrelloRSS:
         # actually need these or not here.
         if item_info['type'] == 'commentCard':
             card = item_info['data']['card']['name']
-            card_id = item_info['data']['card']['id']
+            try:
+                card_id = item_info['data']['card']['idShort']
+            except KeyError:
+                card_id = item_info['data']['card']['id']
             comment = item_info['data']['text']
             title = "%s commented on '%s' in %s" % (name, card, board)
             description = comment
@@ -200,7 +201,10 @@ class TrelloRSS:
             url = self._create_trello_url('card', board_id, card_id)
         elif item_info['type'] == 'createCard':
             card = item_info['data']['card']['name']
-            card_id = item_info['data']['card']['id']
+            try:
+                card_id = item_info['data']['card']['idShort']
+            except KeyError:
+                card_id = item_info['data']['card']['id']
             title = "%s created a new card '%s' in %s" % (name, card, board)
             url = self._create_trello_url('card', board_id, card_id)
         elif item_info['type'] == 'createBoard':
@@ -210,6 +214,39 @@ class TrelloRSS:
             list_name = item_info['data']['list']['name']
             title = "%s created a new list -- %s in %s" % (name, list_name, board)
             url = self._create_trello_url('board', board_id)
+        elif item_info['type'] == 'addChecklistToCard':
+            card = item_info['data']['card']['name']
+            try:
+                card_id = item_info['data']['card']['idShort']
+            except KeyError:
+                # There seems to be an issue with short ID's on some calls
+                card_id = item_info['data']['card']['id']
+            checklist_name = item_info['data']['checklist']['name']
+            title = "%s created a new checklist '%s' in %s" % (name,  checklist_name, card)
+            url = self._create_trello_url('card', board_id, card_id)
+        elif item_info['type'] == 'updateCheckItemStateOnCard':
+            card = item_info['data']['card']['name']
+            try:
+                card_id = item_info['data']['card']['idShort']
+            except KeyError:
+                card_id = item_info['data']['card']['id']
+            try:
+                checklist_name = item_info['data']['checklist']['name']
+            except:
+                # Some calls don't seem to have the checklist name oddly enough
+                checklist_name = '??'
+            checked = False
+            if item_info['data']['checkItem']['state'] == 'complete':
+                checked = True
+            check_item_name = item_info['data']['checkItem']['name']
+            title = ''
+            if checked:
+                title = "%s completed %s in the %s checklist on %s" % (name, check_item_name,
+                        checklist_name, card)
+            else:
+                title = "%s unchecked %s in the %s checklist on %s" % (name, check_item_name,
+                        checklist_name, card)
+            url = self._create_trello_url('card', board_id, card_id)
 
         return Item(title, url, description, date).item
 
