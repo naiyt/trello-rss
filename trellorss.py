@@ -145,11 +145,12 @@ class TrelloRSS:
         -Better url building
     
         """
+
         if items is None:
             items = self.all_items
         
         if self.token and public_board is False:
-            my_updates = Recent(self.key,self.token,all_private=all_private)
+            my_updates = Recent(self.key,self.token,all_private=all_private,board_id=board_id)
         else:
             my_updates = Recent(self.key,board_id=board_id,public_board=public_board)
 
@@ -255,3 +256,4 @@ class TrelloRSS:
             return "https://trello.com/%s/%s" % (url_type, board_id)
         else:
             return "https://trello.com/%s/%s/%s" % (url_type, board_id, card_id)
+
