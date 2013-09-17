@@ -70,4 +70,4 @@ This should be obvious, but figured I should at least mention it. If you've got 
 
 ## TODO
 
-* All the functionaly I wanted from this is now present. If there's something you feel it needs, please feel free to open an issue or send a pull request.
+* All the functionality I wanted from this is now present. If there's something you feel it needs, please feel free to open an issue or send a pull request.
