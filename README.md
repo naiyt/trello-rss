@@ -2,7 +2,7 @@
 
 Trello is a great app, but unfortunately doesn't currently have any RSS feed features. If they decided to add it in the future, all the better. However, based on [this] (https://trello.com/card/rss-feeds/4d5ea62fd76aa1136000000c/898), it doesn't seem like a high priority (if they plan on it at all). That card has 114 votes, but was archived and hasn't been updated in months.
 
-I decided to throw together some quick Python over the weekend to create an RSS feed for your Trello account. I personally find this useful, as I have a lot of Trello boards, but I don't always have Trello in an open browser window. This is particularly useful if you've got multiple group boards you are participating in, and would like to get a quick glance at what's happened over the past day or so, over all your boards.
+I decided to throw together some Python to create an RSS feed for your Trello account. I personally find this useful, as I have a lot of Trello boards, but I don't always have Trello in an open browser window. This is particularly useful if you've got multiple group boards you are participating in, and would like to get a quick glance at what's happened over the past day or so, over all your boards.
 
 You're welcome to extend this into your own app, or use [my web app to generate Trello RSS feeds](http://trellorss.appspot.com).
 
