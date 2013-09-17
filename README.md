@@ -4,9 +4,11 @@ Trello is a great app, but unfortunately doesn't currently have any RSS feed fea
 
 I decided to throw together some quick Python over the weekend to create an RSS feed for your Trello account. I personally find this useful, as I have a lot of Trello boards, but I don't always have Trello in an open browser window. This is particularly useful if you've got multiple group boards you are participating in, and would like to get a quick glance at what's happened over the past day or so, over all your boards.
 
+You're welcome to extend this into your own app, or use [my web app to generate Trello RSS feeds](http://trellorss.appspot.com).
+
 ## Dependencies
 
-- Uses [sarumont's py-trello] (https://github.com/sarumont/py-trello/) API wrapper. I've made a few changes that haven't been pulled yet, so [use my fork of it for now] (https://github.com/naiyt/trello-rss).
+- [sarumont's py-trello] (https://github.com/sarumont/py-trello/) API wrapper. 
 - [PyRSS2Gen] (https://pypi.python.org/pypi/PyRSS2Gen) is used to create the actual RSS object.
 - Python 2.x. No Python 3 support right now.
 - A [Trello API Key] (https://trello.com/1/appKey/generate) and [authentication token] (https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user). A token is not necessary if you are viewing public boards.
@@ -18,10 +20,6 @@ You need an API Key to use the Trello API, and an auth token to let this app rea
 ## Installation instructions
 
 Until I get some packaging setup, the easiest thing for now is to just place this project, py-trello, and PyRSS2Gen in the same directory.
-
-## Example
-
-[Here is an example of the script providing an RSS Feed on the public Trello Development board.](http://74.63.212.37/trello-dev-feed.xml). Updated every half hour.
 
 ## Usage
 
@@ -68,12 +66,8 @@ public_board defaults to False, items default to all, and number defaults to 15.
 
 ## Security
 
-This should be obvious, but figured I should at least mention it. If you've got important confidential info on your Trello board, this module currently will just read it all (if you give it the appropriate token, that is). If you then throw that feed onto some website, all that info is now publicly accessible (in theory). In the future I'll add support for only including specific boards in the feeds, but just keep that in mind for now. Honestly, I think this module will be the most useful to monitor public boards.
+This should be obvious, but figured I should at least mention it. If you've got important confidential info on your Trello board, this module currently will just read it all (if you give it the appropriate token, that is). If you then throw that feed onto some website, all that info is now publicly accessible (in theory). 
 
 ## TODO
 
-- Support for all other [possible actions] (https://trello.com/docs/api/board/index.html#get-1-boards-board-id)
-- Clean up the code a bit.
-- Support for webhooks (would be faster and more efficient)
-
-If you want to help out, I think the best help right now would be with supporting further actions, and allowing the user to specify which boards to follow. If that interests you, jump on in and then send off a pull request.
+* All the functionaly I wanted from this is now present. If there's something you feel it needs, please feel free to open an issue or send a pull request.
