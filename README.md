@@ -50,6 +50,7 @@ These are the available actions:
 * 'cards'
 * 'createChecklist'
 * 'updateCheck'
+* 'moveCard'
 
 Passing in anything else will result in an exception.
 

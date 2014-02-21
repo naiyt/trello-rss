@@ -5,5 +5,5 @@ all_item_types = {
     'comments': 'commentCard',
     'createChecklist': 'addChecklistToCard', 
     'updateCheck': 'updateCheckItemStateOnCard',
-    'updateCard': 'updateCard'
+    'moveCard': 'updateCard'
 }
