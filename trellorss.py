@@ -49,7 +49,6 @@ class Item:
             title=self.title,
             link=self.link,
             description=self.description,
-            guid=self.link,
             pubDate=self.date)
         
 
