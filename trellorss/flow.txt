@@ -1,0 +1,5 @@
+Trello Events will come from one of two locations:
+    1.) Received webhooks
+    2.) HTTP requests
+
+The same info should be received from either, meaning I should be able to extract out the code that's parsing the result. Have a parsing.py, hooks.py, and requesting.py, for example.
