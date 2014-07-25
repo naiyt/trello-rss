@@ -1,5 +1,7 @@
 # trello-rss
 
+# An almost complete overall of Trello-RSS exists in this branch
+
 Trello is a great app, but unfortunately doesn't currently have any RSS feed features. If Fog Creek decides to add it in the future, all the better. However, based on [this] (https://trello.com/card/rss-feeds/4d5ea62fd76aa1136000000c/898), it doesn't seem like a high priority right now.
 
 I decided to throw together some Python to create RSS feeds for your Trello boards. This is useful for getting a broad overview of actions on your Trello boards delivered to your favorite RSS reader.
