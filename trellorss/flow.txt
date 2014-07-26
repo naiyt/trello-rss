@@ -1,5 +1,8 @@
 Trello Events will come from one of two locations:
-    1.) Received webhooks
-    2.) HTTP requests
 
-The same info should be received from either, meaning I should be able to extract out the code that's parsing the result. Have a parsing.py, hooks.py, and requesting.py, for example.
+    1.) Received webhooks
+    2.) API requests
+
+If you want to do an API request, first create a TrelloRSS object, and call the relevant "get" method. That will return some json that will need to be formatted by 'to_rss'. Our callback handler will get json from Trello and also call trello-rss. Since it already has the json, it just immediately can call 'to_rss' with the received info. (Make sure we're getting things in the same format; might have to call some preprocessing method first on the hooks). 
+
+Need to think about persistance. Not sure how the current memcache method will work w/hooks.
