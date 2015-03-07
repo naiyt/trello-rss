@@ -31,13 +31,14 @@ class Recent:
 
     """
 
-    def __init__(self, api_key, token=None, board_id=None, public_board=False, all_private=False):
+    def __init__(self, api_key, api_private_key, token=None, board_id=None, public_board=False, all_private=False):
         self.api_key = api_key
+	self.api_private_key = api_private_key
         self.token = token
         self.public_only = False
         if self.token is None:
             self.public_only = True
-        self.trello = TrelloClient(self.api_key, self.token)
+        self.trello = TrelloClient(self.api_key, self.api_private_key, self.token)
         self.boards = None # Lazy, so doesn't fetch until we ask for them
         self.board_id = board_id
         self.public_board = public_board

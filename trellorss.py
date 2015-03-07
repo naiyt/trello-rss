@@ -91,8 +91,9 @@ DEFAULT_LINK = 'http://trello.com'
 DEFAULT_DESC = 'Trello RSS Feed'
 
 class TrelloRSS:
-    def __init__(self, key, token=None, channel_title=None, rss_channel_link=None, description=None):
+    def __init__(self, key, privatekey=None, token=None, channel_title=None, rss_channel_link=None, description=None):
         self.key = key
+	self.privatekey = privatekey
         if token is None:
             self.public_only = True
         else:
@@ -139,6 +140,7 @@ class TrelloRSS:
         if self.token and public_board is False:
             my_updates = Recent(
                 self.key,
+		self.privatekey,
                 self.token,
                 all_private=all_private,
                 board_id=board_id
@@ -146,6 +148,7 @@ class TrelloRSS:
         else:
             my_updates = Recent(
                 self.key,
+		self.privatekey,
                 board_id=board_id,
                 public_board=public_board
             )
