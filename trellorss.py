@@ -80,7 +80,7 @@ class RSSObj:
             title=self.channel.title,
             link=self.channel.link,
             description=self.channel.description,
-            lastBuildDate=datetime.datetime.now(),
+            lastBuildDate=datetime.datetime.utcnow(),
             items=sorted_items)
         rss_obj = xml.dom.minidom.parseString(rss_obj.to_xml()) # Prettify
         return rss_obj.toprettyxml()
